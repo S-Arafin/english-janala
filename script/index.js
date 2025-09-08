@@ -2,6 +2,11 @@ const createElements = (arr) => {
     const htmlElements = arr.map((el)=> `<span class="btn">${el}</span>`)
     return(htmlElements.join(" "))
 }
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
 
 const manageSpinner = (status)=>{
     if(status==true){
@@ -92,7 +97,7 @@ const displayLevelWord = (words) => {
             <div class="text-2xl font-medium font-bangla">"${word.meaning ? word.meaning : "Meaning Not Found"} / ${word.pronunciation ? word.pronunciation: "Pronunciation Not found"}"</div>
             <div class="flex justify-between items-center">
             <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1a91ff10] hover:bg-[#1a91ff90]"><i class="fa-solid fa-circle-info"></i></button>
-            <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff90]"><i class="fa-solid fa-volume-high"></i></button>
+            <button onclick="pronounceWord('${word.word}')" class="btn bg-[#1a91ff10] hover:bg-[#1a91ff90]"><i class="fa-solid fa-volume-high"></i></button>
         </div>
         </div>`
         wordContainer.append(card)
